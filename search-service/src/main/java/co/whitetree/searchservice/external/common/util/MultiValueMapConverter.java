@@ -1,4 +1,4 @@
-package co.whitetree.searchservice.domain.common.external;
+package co.whitetree.searchservice.external.common.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

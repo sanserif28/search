@@ -1,9 +1,9 @@
-package co.whitetree.searchservice.domain.common.external.naver.service;
+package co.whitetree.searchservice.external.naver.service;
 
-import co.whitetree.searchservice.domain.common.external.RestTemplateClient;
-import co.whitetree.searchservice.domain.common.external.naver.dto.NaverSearchQueryParams;
-import co.whitetree.searchservice.domain.common.external.naver.dto.NaverSearchResponse;
-import co.whitetree.searchservice.domain.common.external.naver.property.NaverApiProperty;
+import co.whitetree.searchservice.external.common.util.RestTemplateClient;
+import co.whitetree.searchservice.external.naver.dto.NaverSearchQueryParams;
+import co.whitetree.searchservice.external.naver.dto.NaverSearchResponse;
+import co.whitetree.searchservice.external.naver.property.NaverApiProperty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;

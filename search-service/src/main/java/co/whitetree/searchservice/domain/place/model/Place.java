@@ -1,7 +1,7 @@
 package co.whitetree.searchservice.domain.place.model;
 
-import co.whitetree.searchservice.domain.common.external.kakao.dto.KakaoSearchResponse;
-import co.whitetree.searchservice.domain.common.external.naver.dto.NaverSearchResponse;
+import co.whitetree.searchservice.external.kakao.dto.KakaoSearchResponse;
+import co.whitetree.searchservice.external.naver.dto.NaverSearchResponse;
 import co.whitetree.searchservice.domain.common.util.StringUtil;
 import lombok.Builder;
 import lombok.Getter;

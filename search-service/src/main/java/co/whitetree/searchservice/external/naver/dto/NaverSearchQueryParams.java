@@ -1,4 +1,4 @@
-package co.whitetree.searchservice.domain.common.external.naver.dto;
+package co.whitetree.searchservice.external.naver.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

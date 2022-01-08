@@ -1,4 +1,4 @@
-package co.whitetree.searchservice.domain.common.external.kakao.dto;
+package co.whitetree.searchservice.external.kakao.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package co.whitetree.searchservice.domain.common.external.kakao.dto;
+package co.whitetree.searchservice.external.kakao.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

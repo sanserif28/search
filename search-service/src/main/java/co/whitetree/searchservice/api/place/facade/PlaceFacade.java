@@ -2,10 +2,10 @@ package co.whitetree.searchservice.api.place.facade;
 
 import co.whitetree.searchservice.api.place.dto.PlaceSearchResponse;
 import co.whitetree.searchservice.api.place.mapper.PlaceMapper;
-import co.whitetree.searchservice.domain.common.external.kakao.dto.KakaoSearchResponse;
-import co.whitetree.searchservice.domain.common.external.kakao.service.KakaoPlaceSearchService;
-import co.whitetree.searchservice.domain.common.external.naver.dto.NaverSearchResponse;
-import co.whitetree.searchservice.domain.common.external.naver.service.NaverPlaceSearchService;
+import co.whitetree.searchservice.external.kakao.dto.KakaoSearchResponse;
+import co.whitetree.searchservice.external.kakao.service.KakaoPlaceSearchService;
+import co.whitetree.searchservice.external.naver.dto.NaverSearchResponse;
+import co.whitetree.searchservice.external.naver.service.NaverPlaceSearchService;
 import co.whitetree.searchservice.domain.place.model.Place;
 import co.whitetree.searchservice.domain.place.model.PlaceOrderedSet;
 import co.whitetree.searchservice.domain.place.service.PlaceSortService;

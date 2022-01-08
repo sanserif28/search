@@ -1,6 +1,5 @@
-package co.whitetree.searchservice.domain.common.external;
+package co.whitetree.searchservice.external.common.util;
 
-import co.whitetree.searchservice.domain.common.external.kakao.dto.KakaoSearchResponse;
 import co.whitetree.searchservice.domain.common.util.ObjectMapperUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
