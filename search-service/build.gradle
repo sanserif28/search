@@ -20,9 +20,18 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
+    implementation 'org.apache.httpcomponents:httpclient' // RestTemplate 에 타임아웃 옵션 추가
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor" // 프로퍼티 설정값을 자바 파일로 불러오기
+
+    // lombok
+    compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // 빠르고 손쉬운 객체 매핑을 위해 mapstruct
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.3.1.Final"
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

@@ -7,4 +7,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class ApiResponse<T> {
     private final T document;
+
+    public static <T> ApiResponse<T> from(T document) {
+        return new ApiResponse<>(document);
+    }
 }

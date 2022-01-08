@@ -1,0 +1,4 @@
+api:
+  kakao:
+    url: "https://dapi.kakao.com/v2/local/search/keyword.json"
+    rest-api-key: "8c6fafe6d799a260a9d6922ec76b6d4e"
