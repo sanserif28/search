@@ -7,4 +7,5 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class KaKaoSearchQueryParams {
     private final String query;
+    private final Integer size;
 }

@@ -17,5 +17,11 @@ public class NaverSearchResponse {
     public static class Item {
         @JsonProperty("title")
         private String title;
+
+        @JsonProperty("address")
+        private String address;
+
+        @JsonProperty("roadAddress")
+        private String roadAddress;
     }
 }

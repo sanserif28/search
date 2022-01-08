@@ -15,10 +15,13 @@ public class KakaoSearchResponse {
     @Getter
     @Setter
     public static class Document {
-        @JsonProperty("id")
-        private Long id;
-
         @JsonProperty("place_name")
-        private String placeName;
+        private String title;
+
+        @JsonProperty("address_name")
+        private String address;
+
+        @JsonProperty("road_address_name")
+        private String roadAddress;
     }
 }

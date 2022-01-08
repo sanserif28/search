@@ -5,10 +5,15 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public class ApiResponse<T> {
-    private final T document;
+public class ApiResponse<T, U> {
+    private final T meta;
+    private final U documents;
 
-    public static <T> ApiResponse<T> from(T document) {
-        return new ApiResponse<>(document);
+    public static <T, U> ApiResponse<T, U> of(T meta, U documents) {
+        return new ApiResponse<T, U>(meta, documents);
+    }
+
+    public static <T, U> ApiResponse<T, U> of(U documents) {
+        return new ApiResponse<T, U>(null, documents);
     }
 }

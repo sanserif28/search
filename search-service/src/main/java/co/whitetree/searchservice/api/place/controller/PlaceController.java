@@ -1,6 +1,7 @@
 package co.whitetree.searchservice.api.place.controller;
 
 import co.whitetree.searchservice.api.common.ApiResponse;
+import co.whitetree.searchservice.api.place.dto.MetaPlaceSearchResponse;
 import co.whitetree.searchservice.api.place.dto.PlaceSearchResponse;
 import co.whitetree.searchservice.api.place.facade.PlaceFacade;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,9 @@ public class PlaceController {
     private final PlaceFacade placeFacade;
 
     @GetMapping("/v1/places")
-    public ApiResponse<List<PlaceSearchResponse>> searchPlace(@RequestParam String query) {
+    public ApiResponse<MetaPlaceSearchResponse, List<PlaceSearchResponse>> searchPlace(@RequestParam String query) {
         List<PlaceSearchResponse> result = placeFacade.search(query);
-        return ApiResponse.from(result);
+        MetaPlaceSearchResponse meta = MetaPlaceSearchResponse.from(result.size());
+        return ApiResponse.of(meta, result);
     }
 }
