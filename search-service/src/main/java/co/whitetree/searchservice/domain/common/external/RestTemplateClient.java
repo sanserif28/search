@@ -20,13 +20,13 @@ public class RestTemplateClient {
 
     private final RestTemplate restTemplate;
 
-    private static final int DEFAULT_CONNECT_TIMEOUT = 5000;
-    private static final int DEFAULT_READ_TIMEOUT = 10000;
+    private static final int CONNECT_TIMEOUT_MILLISECONDS = 3000;
+    private static final int READ_TIMEOUT_MILLISECONDS = 7000;
 
     public RestTemplateClient() {
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-        factory.setConnectTimeout(DEFAULT_CONNECT_TIMEOUT);
-        factory.setReadTimeout(DEFAULT_READ_TIMEOUT);
+        factory.setConnectTimeout(CONNECT_TIMEOUT_MILLISECONDS);
+        factory.setReadTimeout(READ_TIMEOUT_MILLISECONDS);
 
         this.restTemplate = new RestTemplate(factory);
     }
@@ -47,7 +47,7 @@ public class RestTemplateClient {
             return responseEntity.getBody();
         } catch (RestClientException e) {
             log.error("RestTemplate 요청/응답 중 오류가 발생했습니다.", e);
-            throw e;
+            return null;
         }
     }
 }

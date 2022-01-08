@@ -4,13 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
 public class KakaoSearchResponse {
     @JsonProperty("documents")
-    private List<Document> documents;
+    private List<Document> documents = new ArrayList<>();
 
     @Getter
     @Setter

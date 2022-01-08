@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
+import static java.util.Objects.isNull;
+
 @RequiredArgsConstructor
 @Service
 public class NaverPlaceSearchService {
@@ -27,6 +29,9 @@ public class NaverPlaceSearchService {
                 httpHeaders,
                 NaverSearchResponse.class,
                 queryParams);
+        if (isNull(response)) {
+            return new NaverSearchResponse();
+        }
 
         return response;
     }
