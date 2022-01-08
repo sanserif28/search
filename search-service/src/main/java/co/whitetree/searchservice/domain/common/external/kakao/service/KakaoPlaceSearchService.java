@@ -1,6 +1,5 @@
 package co.whitetree.searchservice.domain.common.external.kakao.service;
 
-import co.whitetree.searchservice.api.place.dto.PlaceSearchResponse;
 import co.whitetree.searchservice.domain.common.external.RestTemplateClient;
 import co.whitetree.searchservice.domain.common.external.kakao.dto.KaKaoSearchQueryParams;
 import co.whitetree.searchservice.domain.common.external.kakao.dto.KakaoSearchResponse;
@@ -8,10 +7,6 @@ import co.whitetree.searchservice.domain.common.external.kakao.property.KakaoApi
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
-
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.*;
 
 @RequiredArgsConstructor
 @Service
@@ -29,8 +24,6 @@ public class KakaoPlaceSearchService {
                 httpHeaders,
                 KakaoSearchResponse.class,
                 queryParams);
-
-
 
         return response;
     }

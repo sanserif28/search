@@ -2,3 +2,7 @@ api:
   kakao:
     url: "https://dapi.kakao.com/v2/local/search/keyword.json"
     rest-api-key: "8c6fafe6d799a260a9d6922ec76b6d4e"
+  naver:
+    url: "https://openapi.naver.com/v1/search/local.json"
+    client-id: "mEwoLt5sG1sHSAc4ihP2"
+    client-secret: "VWVUMMNG7u"
