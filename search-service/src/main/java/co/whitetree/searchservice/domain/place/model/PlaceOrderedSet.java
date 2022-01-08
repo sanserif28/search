@@ -25,13 +25,13 @@ public class PlaceOrderedSet {
         return new PlaceOrderedSet(places);
     }
 
-    public PlaceOrderedSet intersection(PlaceOrderedSet anotherPlaces) {
+    public PlaceOrderedSet orderedIntersection(PlaceOrderedSet anotherPlaces) {
         LinkedHashSet<Place> intersection = new LinkedHashSet<>(places);
-        intersection.addAll(anotherPlaces.getPlaces());
+        intersection.retainAll(anotherPlaces.getPlaces());
         return PlaceOrderedSet.from(intersection);
     }
 
-    public void addAll(PlaceOrderedSet placeOrderedSet) {
+    public void orderedUnion(PlaceOrderedSet placeOrderedSet) {
         this.places.addAll(placeOrderedSet.getPlaces());
     }
 }

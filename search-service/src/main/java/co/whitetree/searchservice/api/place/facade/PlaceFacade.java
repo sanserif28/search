@@ -8,10 +8,10 @@ import co.whitetree.searchservice.domain.common.external.naver.dto.NaverSearchRe
 import co.whitetree.searchservice.domain.common.external.naver.service.NaverPlaceSearchService;
 import co.whitetree.searchservice.domain.place.model.Place;
 import co.whitetree.searchservice.domain.place.model.PlaceOrderedSet;
+import co.whitetree.searchservice.domain.place.service.PlaceSortService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashSet;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -21,6 +21,7 @@ import static java.util.stream.Collectors.toList;
 public class PlaceFacade {
     private final KakaoPlaceSearchService kakaoPlaceSearchService;
     private final NaverPlaceSearchService naverPlaceSearchService;
+    private final PlaceSortService placeSortService;
     private final PlaceMapper placeMapper;
 
     public List<PlaceSearchResponse> search(String query) {
@@ -36,23 +37,15 @@ public class PlaceFacade {
         NaverSearchResponse naverSearchResponse = naverPlaceSearchService.search(query);
         PlaceOrderedSet naverPlaces = PlaceOrderedSet.from(
                 naverSearchResponse.getItems()
-                .stream()
-                .map(Place::ofNaver)
-                .collect(toList()));
+                        .stream()
+                        .map(Place::ofNaver)
+                        .collect(toList()));
 
-        PlaceOrderedSet places = kakaoPlaces.intersection(naverPlaces);
-        places.addAll(kakaoPlaces);
-        places.addAll(naverPlaces);
+        PlaceOrderedSet places = placeSortService.sort(kakaoPlaces, naverPlaces);
 
         return places.getPlaces()
                 .stream()
                 .map(placeMapper::toResponseDto)
                 .collect(toList());
-    }
-
-    private LinkedHashSet<Place> intersection(List<Place> kakaoPlaces, List<Place> naverPlaces) {
-        LinkedHashSet<Place> intersection = new LinkedHashSet<>(kakaoPlaces);
-        intersection.addAll(naverPlaces);
-        return intersection;
     }
 }

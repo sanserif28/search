@@ -7,4 +7,6 @@ import lombok.Setter;
 @Setter
 public class PlaceSearchResponse {
     private String title;
+    private String address;
+    private String roadAddress;
 }
