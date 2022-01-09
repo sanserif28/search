@@ -1,12 +1,14 @@
 package co.whitetree.searchservice.api.place.dto;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@Setter
+@RequiredArgsConstructor
+@Builder
 public class PlaceSearchResponse {
-    private String title;
-    private String address;
-    private String roadAddress;
+    private final String title;
+    private final String address;
+    private final String roadAddress;
 }

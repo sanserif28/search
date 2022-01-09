@@ -1,16 +1,16 @@
 package co.whitetree.searchservice.api.place.dto;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@Setter
+@RequiredArgsConstructor
+@Builder
 public class MetaPlaceSearchResponse {
-    private Integer totalCount;
+    private final Integer totalCount;
 
     public static MetaPlaceSearchResponse from(Integer totalCount) {
-        MetaPlaceSearchResponse response = new MetaPlaceSearchResponse();
-        response.setTotalCount(totalCount);
-        return response;
+        return new MetaPlaceSearchResponse(totalCount);
     }
 }
