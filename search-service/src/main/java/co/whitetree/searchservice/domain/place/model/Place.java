@@ -52,6 +52,8 @@ public class Place {
      * 서울, 서울시, 서울특별시 -> 서울
      * 경기, 경기도 -> 경기
      * 충청남도, 충남 -> 충남
+     * 전라남도, 전남 -> 전남
+     * 경상남도, 경남 -> 경남
      */
     private String modifyAddress(String address) {
         if (!StringUtils.hasText(address)) return address;
