@@ -15,7 +15,7 @@ import java.util.List;
 public class KeywordController {
     private final KeywordFacade keywordFacade;
 
-    @GetMapping("/v1/keywords/")
+    @GetMapping("/v1/keywords")
     public ApiResponse<MetaKeywordResponse, List<KeywordResponse>> findPopularKeywords() {
         List<KeywordResponse> keywordResponses = keywordFacade.findPopularKeywords();
         MetaKeywordResponse metaKeywordResponse = MetaKeywordResponse.builder()
