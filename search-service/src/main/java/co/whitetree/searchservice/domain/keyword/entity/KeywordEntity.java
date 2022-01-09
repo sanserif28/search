@@ -26,7 +26,7 @@ public class KeywordEntity {
 
     // 낙관적락 적용
     @Version
-    @Column(name = "version")
+    @Column(name = "version", columnDefinition = "bigint default 0")
     private Long version;
 
     @Builder
