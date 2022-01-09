@@ -15,6 +15,6 @@ public class KeywordFindService {
     private final KeywordQueryRepository keywordQueryRepository;
 
     public List<KeywordEntity> findTop10OrderBySearchCount() {
-        return keywordQueryRepository.findKeywordOrderBySearchCountAndLimit10();
+        return keywordQueryRepository.findKeywordOrderBySearchCountAndLimit(10);
     }
 }

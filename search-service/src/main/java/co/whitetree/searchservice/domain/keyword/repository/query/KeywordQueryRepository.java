@@ -14,11 +14,11 @@ import static co.whitetree.searchservice.domain.keyword.entity.QKeywordEntity.ke
 public class KeywordQueryRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<KeywordEntity> findKeywordOrderBySearchCountAndLimit10() {
+    public List<KeywordEntity> findKeywordOrderBySearchCountAndLimit(long limit) {
         return jpaQueryFactory.select(keywordEntity)
                 .from(keywordEntity)
                 .orderBy(keywordEntity.searchCount.desc())
-                .limit(10)
+                .limit(limit)
                 .fetch();
     }
 }
