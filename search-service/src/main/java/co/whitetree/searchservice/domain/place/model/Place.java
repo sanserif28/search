@@ -14,19 +14,19 @@ public class Place {
     private final String title;
     private final String address;
     private final String roadAddress;
-    private final String equivalence;
+    private final String identity;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Place)) return false;
         Place place = (Place) o;
-        return Objects.equals(getEquivalence(), place.getEquivalence());
+        return Objects.equals(getIdentity(), place.getIdentity());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEquivalence());
+        return Objects.hash(getIdentity());
     }
 
     @Builder
@@ -34,17 +34,17 @@ public class Place {
         this.title = StringUtil.removeTags(title);
         this.address = StringUtil.removeTags(address);
         this.roadAddress = StringUtil.removeTags(roadAddress);
-        this.equivalence = createEquivalence();
+        this.identity = createIdentity();
     }
 
     /**
-     * 변형된 address 기준으로 동등성 비교를 한다.
-     * address 가 없을 경우, title 로 동등성 비교를 한다.
+     * 변형된 address 기준으로 동등성 기준을 잡는다.
+     * address 가 없을 경우, title 로 동등성 기준을 잡는다.
      */
-    private String createEquivalence() {
+    private String createIdentity() {
         String modifiedAddress = modifyAddress(this.address);
-        String equivalence = StringUtils.hasText(modifiedAddress) ? modifiedAddress : this.title;
-        return StringUtil.removeWhitespaces(equivalence);
+        String result = StringUtils.hasText(modifiedAddress) ? modifiedAddress : this.title;
+        return StringUtil.removeWhitespaces(result);
     }
 
     /**
