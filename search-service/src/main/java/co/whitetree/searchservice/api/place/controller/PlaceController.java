@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Validated
@@ -20,7 +21,7 @@ public class PlaceController {
 
     @GetMapping("/v1/places")
     public ApiResponse<MetaResponse, List<PlaceSearchResponse>> searchPlace(
-            @RequestParam String query) {
+            @RequestParam @NotBlank String query) {
         List<PlaceSearchResponse> result = placeFacade.search(query);
         MetaResponse metaResponse = MetaResponse.from(result.size());
         return ApiResponse.of(metaResponse, result);

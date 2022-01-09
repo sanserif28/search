@@ -1,4 +1,4 @@
-package co.whitetree.searchservice.api.common;
+package co.whitetree.searchservice.api.common.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
