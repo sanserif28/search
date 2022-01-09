@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'com.h2database:h2'
     implementation 'org.apache.httpcomponents:httpclient' // RestTemplate 에 타임아웃 옵션 추가
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor" // 프로퍼티 설정값을 자바 파일로 불러오기
