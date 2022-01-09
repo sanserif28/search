@@ -2,13 +2,12 @@ package co.whitetree.searchservice.api.place.facade;
 
 import co.whitetree.searchservice.api.place.dto.PlaceSearchResponse;
 import co.whitetree.searchservice.api.place.mapper.PlaceMapper;
+import co.whitetree.searchservice.domain.place.model.PlaceOrderedSet;
+import co.whitetree.searchservice.domain.place.service.PlaceSortService;
 import co.whitetree.searchservice.external.kakao.dto.KakaoSearchResponse;
 import co.whitetree.searchservice.external.kakao.service.KakaoPlaceSearchService;
 import co.whitetree.searchservice.external.naver.dto.NaverSearchResponse;
 import co.whitetree.searchservice.external.naver.service.NaverPlaceSearchService;
-import co.whitetree.searchservice.domain.place.model.Place;
-import co.whitetree.searchservice.domain.place.model.PlaceOrderedSet;
-import co.whitetree.searchservice.domain.place.service.PlaceSortService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,19 +26,10 @@ public class PlaceFacade {
     public List<PlaceSearchResponse> search(String query) {
 
         KakaoSearchResponse kakaoSearchResponse = kakaoPlaceSearchService.search(query);
-        PlaceOrderedSet kakaoPlaces = PlaceOrderedSet.from(
-                kakaoSearchResponse.getDocuments()
-                        .stream()
-                        .map(Place::ofKakao)
-                        .collect(toList()));
-
+        PlaceOrderedSet kakaoPlaces = PlaceOrderedSet.from(kakaoSearchResponse.toPlaceList());
 
         NaverSearchResponse naverSearchResponse = naverPlaceSearchService.search(query);
-        PlaceOrderedSet naverPlaces = PlaceOrderedSet.from(
-                naverSearchResponse.getItems()
-                        .stream()
-                        .map(Place::ofNaver)
-                        .collect(toList()));
+        PlaceOrderedSet naverPlaces = PlaceOrderedSet.from(naverSearchResponse.toPlaceList());
 
         PlaceOrderedSet places = placeSortService.sort(kakaoPlaces, naverPlaces);
 

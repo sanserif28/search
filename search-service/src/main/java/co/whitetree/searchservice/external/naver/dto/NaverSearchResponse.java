@@ -1,11 +1,14 @@
 package co.whitetree.searchservice.external.naver.dto;
 
+import co.whitetree.searchservice.domain.place.model.Place;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Getter
 @Setter
@@ -24,5 +27,11 @@ public class NaverSearchResponse {
 
         @JsonProperty("roadAddress")
         private String roadAddress;
+    }
+
+    public List<Place> toPlaceList() {
+        return items.stream()
+                .map(Place::ofNaver)
+                .collect(toList());
     }
 }
