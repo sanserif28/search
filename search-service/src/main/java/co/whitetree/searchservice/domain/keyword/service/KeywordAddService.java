@@ -13,7 +13,7 @@ public class KeywordAddService {
     private final KeywordRepository keywordRepository;
 
     public void add(String query) {
-        keywordRepository.findByQuery(query)
+        keywordRepository.findWithLockByQuery(query)
                 .ifPresentOrElse(
                         KeywordEntity::incrementSearchCount,
                         () -> {
