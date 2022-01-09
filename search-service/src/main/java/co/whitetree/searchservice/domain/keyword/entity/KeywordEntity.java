@@ -24,9 +24,10 @@ public class KeywordEntity {
     @Column(name = "search_count")
     private Long searchCount;
 
-//    @Version
-//    @Column(name = "version", columnDefinition = "bigint default 0")
-//    private Long version;
+    // 낙관적락 적용
+    @Version
+    @Column(name = "version")
+    private Long version;
 
     @Builder
     public KeywordEntity(Long id, String query, Long searchCount) {
