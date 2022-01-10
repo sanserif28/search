@@ -13,7 +13,7 @@ import java.time.Duration;
 @Configuration
 public class RedisCacheConfig {
     private static final String PREFIX_CACHE_NAME = "search-service:";
-    private static final int EXPIRATION_DAYS = 14;
+    private static final int EXPIRATION_DAYS = 7; // 캐시 만료일 7일
 
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
