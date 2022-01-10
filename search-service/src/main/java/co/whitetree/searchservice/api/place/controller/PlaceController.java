@@ -4,6 +4,7 @@ import co.whitetree.searchservice.api.common.dto.ApiResponse;
 import co.whitetree.searchservice.api.common.dto.MetaResponse;
 import co.whitetree.searchservice.api.place.dto.PlaceSearchResponse;
 import co.whitetree.searchservice.api.place.facade.PlaceFacade;
+import co.whitetree.searchservice.domain.keyword.service.KeywordAddRetryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +19,17 @@ import java.util.List;
 @RestController
 public class PlaceController {
     private final PlaceFacade placeFacade;
+    private final KeywordAddRetryService keywordAddRetryService;
 
     @GetMapping("/v1/places")
     public ApiResponse<MetaResponse, List<PlaceSearchResponse>> searchPlace(
             @RequestParam @NotBlank String query) {
+
         List<PlaceSearchResponse> result = placeFacade.search(query);
         MetaResponse metaResponse = MetaResponse.from(result.size());
+
+        keywordAddRetryService.addKeywordSearchCount(query);
+
         return ApiResponse.of(metaResponse, result);
     }
 }

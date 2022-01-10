@@ -2,7 +2,6 @@ package co.whitetree.searchservice.api.place.facade;
 
 import co.whitetree.searchservice.api.place.dto.PlaceSearchResponse;
 import co.whitetree.searchservice.api.place.mapper.PlaceMapper;
-import co.whitetree.searchservice.domain.keyword.service.KeywordAddRetryService;
 import co.whitetree.searchservice.domain.place.model.PlaceOrderedSet;
 import co.whitetree.searchservice.domain.place.service.PlaceSortService;
 import co.whitetree.searchservice.external.kakao.dto.KakaoSearchResponse;
@@ -11,6 +10,7 @@ import co.whitetree.searchservice.external.naver.dto.NaverSearchResponse;
 import co.whitetree.searchservice.external.naver.service.NaverPlaceSearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +25,8 @@ public class PlaceFacade {
     private final NaverPlaceSearchService naverPlaceSearchService;
     private final PlaceSortService placeSortService;
     private final PlaceMapper placeMapper;
-    private final KeywordAddRetryService keywordAddRetryService;
 
+    @Cacheable(value = "search", key = "#query")
     public List<PlaceSearchResponse> search(String query) {
 
         KakaoSearchResponse kakaoSearchResponse = kakaoPlaceSearchService.search(query);
@@ -36,8 +36,6 @@ public class PlaceFacade {
         PlaceOrderedSet naverPlaces = PlaceOrderedSet.from(naverSearchResponse.toPlaceList());
 
         PlaceOrderedSet places = placeSortService.sort(kakaoPlaces, naverPlaces);
-
-        keywordAddRetryService.addKeywordSearchCount(query);
 
         return places.getPlaces()
                 .stream()
