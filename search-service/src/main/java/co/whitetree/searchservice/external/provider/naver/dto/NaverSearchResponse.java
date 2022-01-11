@@ -1,37 +1,32 @@
 package co.whitetree.searchservice.external.provider.naver.dto;
 
-import co.whitetree.searchservice.domain.place.model.Place;
+import co.whitetree.searchservice.external.provider.SearchResponse;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
+public class NaverSearchResponse extends SearchResponse {
 
-@Getter
-@Setter
-public class NaverSearchResponse {
-    @JsonProperty("items")
-    private List<Item> items = new ArrayList<>();
-
-    @Getter
-    @Setter
-    public static class Item {
-        @JsonProperty("title")
-        private String title;
-
-        @JsonProperty("address")
-        private String address;
-
-        @JsonProperty("roadAddress")
-        private String roadAddress;
+    @JsonCreator
+    public NaverSearchResponse(@JsonProperty("items") List<KakaoDocument> documents) {
+        super(documents == null ?
+                new ArrayList<>() :
+                documents.stream()
+                .map(k -> new Document(k.getTitle(), k.getAddress(), k.getRoadAddress()))
+                .collect(Collectors.toList()));
     }
 
-    public List<Place> toPlaceList() {
-        return items.stream()
-                .map(Place::ofNaver)
-                .collect(toList());
+    public static class KakaoDocument extends Document {
+
+        @JsonCreator
+        public KakaoDocument(
+                @JsonProperty("title") String title,
+                @JsonProperty("address") String address,
+                @JsonProperty("roadAddress") String roadAddress) {
+            super(title, address, roadAddress);
+        }
     }
 }

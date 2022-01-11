@@ -1,8 +1,7 @@
 package co.whitetree.searchservice.domain.place.model;
 
-import co.whitetree.searchservice.external.provider.kakao.dto.KakaoSearchResponse;
-import co.whitetree.searchservice.external.provider.naver.dto.NaverSearchResponse;
 import co.whitetree.searchservice.domain.common.util.StringUtil;
+import co.whitetree.searchservice.external.provider.SearchResponse;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.util.StringUtils;
@@ -74,19 +73,11 @@ public class Place {
         return String.join("", split);
     }
 
-    public static Place ofKakao(KakaoSearchResponse.Document document) {
+    public static Place of(SearchResponse.Document document) {
         return Place.builder()
                 .title(document.getTitle())
                 .address(document.getAddress())
                 .roadAddress(document.getRoadAddress())
-                .build();
-    }
-
-    public static Place ofNaver(NaverSearchResponse.Item item) {
-        return Place.builder()
-                .title(item.getTitle())
-                .address(item.getAddress())
-                .roadAddress(item.getRoadAddress())
                 .build();
     }
 }
