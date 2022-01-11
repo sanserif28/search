@@ -1,4 +1,4 @@
-package co.whitetree.searchservice.external.kakao.dto;
+package co.whitetree.searchservice.external.provider.kakao.dto;
 
 import co.whitetree.searchservice.domain.place.model.Place;
 import com.fasterxml.jackson.annotation.JsonProperty;

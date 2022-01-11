@@ -1,9 +1,9 @@
-package co.whitetree.searchservice.external.kakao.service;
+package co.whitetree.searchservice.external.provider.kakao.service;
 
 import co.whitetree.searchservice.external.common.util.RestTemplateClient;
-import co.whitetree.searchservice.external.kakao.dto.KaKaoSearchQueryParams;
-import co.whitetree.searchservice.external.kakao.dto.KakaoSearchResponse;
-import co.whitetree.searchservice.external.kakao.property.KakaoApiProperty;
+import co.whitetree.searchservice.external.provider.kakao.dto.KaKaoSearchQueryParams;
+import co.whitetree.searchservice.external.provider.kakao.dto.KakaoSearchResponse;
+import co.whitetree.searchservice.external.provider.kakao.property.KakaoApiProperty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;

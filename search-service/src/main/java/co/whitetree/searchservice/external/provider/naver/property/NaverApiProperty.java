@@ -1,4 +1,4 @@
-package co.whitetree.searchservice.external.kakao.property;
+package co.whitetree.searchservice.external.provider.naver.property;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,8 +8,9 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-@ConfigurationProperties("api.kakao")
-public class KakaoApiProperty {
+@ConfigurationProperties("api.naver")
+public class NaverApiProperty {
     private String url;
-    private String restApiKey;
+    private String clientId;
+    private String clientSecret;
 }

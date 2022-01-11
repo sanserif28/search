@@ -1,4 +1,4 @@
-package co.whitetree.searchservice.external.naver.dto;
+package co.whitetree.searchservice.external.provider.naver.dto;
 
 import co.whitetree.searchservice.domain.place.model.Place;
 import com.fasterxml.jackson.annotation.JsonProperty;
