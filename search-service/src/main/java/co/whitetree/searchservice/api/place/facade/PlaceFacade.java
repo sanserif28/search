@@ -4,7 +4,7 @@ import co.whitetree.searchservice.api.place.dto.PlaceSearchResponse;
 import co.whitetree.searchservice.api.place.mapper.PlaceMapper;
 import co.whitetree.searchservice.domain.keyword.service.KeywordAddRetryService;
 import co.whitetree.searchservice.domain.place.model.PlaceOrderedSet;
-import co.whitetree.searchservice.domain.place.service.PlaceSortService;
+import co.whitetree.searchservice.domain.place.policy.PlaceSortPolicy;
 import co.whitetree.searchservice.external.kakao.dto.KakaoSearchResponse;
 import co.whitetree.searchservice.external.kakao.service.KakaoPlaceSearchService;
 import co.whitetree.searchservice.external.naver.dto.NaverSearchResponse;
@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.toList;
 public class PlaceFacade {
     private final KakaoPlaceSearchService kakaoPlaceSearchService;
     private final NaverPlaceSearchService naverPlaceSearchService;
-    private final PlaceSortService placeSortService;
+    private final PlaceSortPolicy placeSortPolicy;
     private final PlaceMapper placeMapper;
     private final KeywordAddRetryService keywordAddRetryService;
 
@@ -35,7 +35,7 @@ public class PlaceFacade {
         NaverSearchResponse naverSearchResponse = naverPlaceSearchService.search(query);
         PlaceOrderedSet naverPlaces = PlaceOrderedSet.from(naverSearchResponse.toPlaceList());
 
-        PlaceOrderedSet places = placeSortService.sort(kakaoPlaces, naverPlaces);
+        PlaceOrderedSet places = placeSortPolicy.sort(List.of(kakaoPlaces, naverPlaces));
 
         return places.getPlaces()
                 .stream()

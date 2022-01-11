@@ -9,9 +9,7 @@ public class PlaceOrderedSet {
     @Getter
     private final LinkedHashSet<Place> places;
 
-    public PlaceOrderedSet(LinkedHashSet<Place> places) {
-        this.places = places;
-    }
+    public PlaceOrderedSet(LinkedHashSet<Place> places) { this.places = places; }
 
     public PlaceOrderedSet(List<Place> places) {
         this.places = new LinkedHashSet<>(places);
@@ -21,9 +19,9 @@ public class PlaceOrderedSet {
         return new PlaceOrderedSet(places);
     }
 
-    public static PlaceOrderedSet from(List<Place> places) {
-        return new PlaceOrderedSet(places);
-    }
+    public static PlaceOrderedSet from(List<Place> places) { return new PlaceOrderedSet(places); }
+
+    public static PlaceOrderedSet emptySet() { return new PlaceOrderedSet(new LinkedHashSet<>()); }
 
     public PlaceOrderedSet orderedIntersection(PlaceOrderedSet anotherPlaces) {
         LinkedHashSet<Place> intersection = new LinkedHashSet<>(places);
