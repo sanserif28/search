@@ -36,7 +36,7 @@ cd ./search-service-test
 
 ## Test
 
-- 장소 검색
+### 장소 검색
 
 ```bash
 curl -v -X GET "http://localhost:8080/v1/places?query=%ED%8C%8C%EC%8A%A4%ED%83%80
@@ -45,13 +45,13 @@ curl -v -X GET "http://localhost:8080/v1/places?query=%ED%8C%8C%EC%8A%A4%ED%83%8
 - query 뒤에 한글은 url encdoing 이 필요합니다.
 - [변환사이트 링크](https://meyerweb.com/eric/tools/dencoder/)
 
-- 검색 키워드 목록 (Top 10)
+### 검색 키워드 목록 (Top 10)
 
 ```bash
 curl -v -X GET "http://localhost:8080/v1/keywords"
 ```
 
-- 테스트를 위한 데이터를 기본 등록(insert)해 놓았습니다.
+- 테스트를 위한 데이터를 기본 등록(insert)해 놓았습니다. [소스](https://github.com/sanserif28/search/blob/main/search-service-test/src/main/resources/db/dev/data.sql)
 
 ---
 
