@@ -9,10 +9,10 @@ git clone https://github.com/sanserif28/search.git
 
 레포지토리를 복제했다면, 아래 옵션 중 하나를 선택하여 실행하시면 됩니다.
 
-- **옵션 1)** search-service 만 실행 (도커 없이 springboot 서버만 실행, 단순 API 테스트용, redis, spring-cloud 연동 X)
+- **옵션 1)** search-service(test 버전) 만 실행 (도커 없이 springboot 서버만 실행, 단순 API 테스트용, redis, spring-cloud 연동 X)
 
 ```bash
-cd ./search-service
+cd ./search-service-test
 ./gradlew bootRun
 ```
 
