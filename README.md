@@ -39,8 +39,11 @@ cd ./search-service-test
 - 장소 검색
 
 ```bash
-curl -v -X GET "http://localhost:8080/v1/places" --data-urlencode "query=파스타"
+curl -v -X GET "http://localhost:8080/v1/places?query=%ED%8C%8C%EC%8A%A4%ED%83%80
 ```
+
+- query 뒤에 한글은 url encdoing 이 필요합니다.
+- [변환사이트 링크](https://meyerweb.com/eric/tools/dencoder/)
 
 - 검색 키워드 목록 (Top 10)
 
