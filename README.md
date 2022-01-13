@@ -42,7 +42,7 @@ cd ./search-service-test
 curl -v -X GET "http://localhost:8080/v1/places?query=%ED%8C%8C%EC%8A%A4%ED%83%80
 ```
 
-- query 뒤에 한글은 url encdoing 이 필요합니다.
+- query 뒤에 한글은 url encoding 이 필요합니다. (위 예시는 '파스타')
 - [변환사이트 링크](https://meyerweb.com/eric/tools/dencoder/)
 
 ### 검색 키워드 목록 (Top 10)
@@ -64,7 +64,7 @@ curl -v -X GET "http://localhost:8080/v1/keywords"
 
 장소의 동등성 판단 기준
 
-- 동등성 판단 기준이 되는 `identity` 필드를 만들어 `equals()`, `hashcode()` 메소드 오버라이딩
+- 동등성 판단 기준이 되는 `identity` 필드를 만들어 `equals()`, `hashcode()` [메소드 오버라이딩](https://github.com/sanserif28/search/blob/main/search-service/src/main/java/co/whitetree/searchservice/domain/place/model/Place.java#L19)
 - 장소는 ‘주소’가 같으면 같다고 판단
 - 도로명주소는 누락된 데이터가 몇몇 보이므로 지번주소를 사용
 - 지번주소가 누락되었다면, 장소이름으로 동등성을 비교
@@ -77,7 +77,7 @@ curl -v -X GET "http://localhost:8080/v1/keywords"
 낙관적락(Optimistic Lock) 사용
 
 - version 컬럼을 추가하여 버전을 관리하여 DB lock 의 부담을 줄이면서 동시성 이슈 해결
-- 예외가 발생하면 쓰레드 수만큼 재시도 (여기서는 10번으로 설정)
+- [예외가 발생하면 쓰레드 수만큼 재시도](https://github.com/sanserif28/search/blob/main/search-service/src/main/java/co/whitetree/searchservice/domain/keyword/service/KeywordAddRetryService.java#L23) (여기서는 10번으로 설정)
 - 재시도 숫자는 성능을 고려하여 적당한 수를 조절
 - 재시도 횟수 초과로 데이터 업데이트는 일부 유실될 수 있으나, 키워드 검색 카운트의 정합성과 동시성 성능 향상의 trade-off 중 동시성 성능 향상을 선택
 
@@ -85,7 +85,7 @@ curl -v -X GET "http://localhost:8080/v1/keywords"
 
 ## 3. 외부 API 제공자의 다양한 장애 상황 고려
 
-- connect_timeout 3초, read_timeout 7초 설정하여 없으면 empty List 를 반환하도록 처리
+- [connect_timeout 3초, read_timeout 7초](https://github.com/sanserif28/search/blob/main/search-service/src/main/java/co/whitetree/searchservice/external/common/util/RestTemplateClient.java#L27) 설정하여 없으면 empty List 를 반환하도록 처리
 - 요청값을 잘 못 전달하는 오류(Bad Request)를 사전에 차단할 수 있도록 query 변수에 검증조건 추가 (validation)
 - 에러 핸들링을 통해 클라이언트에게 구체적인 메시지와 에러타입, 상태코드, 에러 필드를 제공하여 빠른 조치가 가능하도록 구현
 
@@ -95,15 +95,15 @@ curl -v -X GET "http://localhost:8080/v1/keywords"
 
 반응성
 
-- 특정 메소드 호출 시 Redis 서버에 캐시를 적용하여 성능 향상 (검색 API 호출: 219ms → 15ms)
+- 특정 메소드 호출 시 Redis 서버에 [캐시](https://github.com/sanserif28/search/blob/main/search-service/src/main/java/co/whitetree/searchservice/api/place/facade/PlaceFacade.java#L25)를 적용하여 성능 향상 (검색 API 호출: 219ms → 15ms)
 - look aside cache 방식 적용
-- 캐시만료기간 TTL 7일로 설정 (검색 API 결과가 자주 바뀌지 않을 것이라고 가정)
+- 캐시만료기간 TTL 7일로 설정 (검색 API 결과가 자주 바뀌지 않을 것이라고 가정) [(레디스 설정)](https://github.com/sanserif28/search/blob/main/search-service/src/main/java/co/whitetree/searchservice/domain/common/config/RedisCacheConfig.java#L14)
 
 가용성, 확장성
 
-- API gateway (Spring Cloud Gateway) 추가하여 트래픽 분산 (라운드 로빈)
-- search-service 를 수평적 확장하여 대용량 트래픽 발생시 가용성, 확장성 향상
-- 현재 연결된 서비스 확인을 위한 대시보드로 eureka 서버 실행 및 클라이언트 연결
+- API gateway (Spring Cloud Gateway) 추가하여 [로드밸런싱](https://github.com/sanserif28/search/blob/main/api-gateway/src/main/resources/application.yml#L19)으로 트래픽 분산 (라운드 로빈)
+- search-service 를 [수평적 확장](https://github.com/sanserif28/search/blob/main/docker-compose.yml#L16)하여 대용량 트래픽 발생시 가용성, 확장성 향상
+- 현재 연결된 서비스 확인을 위한 대시보드로 [eureka 서버](https://github.com/sanserif28/search/blob/main/docker-compose.yml#L48) 실행 및 클라이언트 연결
 
 ---
 
@@ -113,6 +113,6 @@ curl -v -X GET "http://localhost:8080/v1/keywords"
 - 도메인 모델 패턴으로 해당 도메인과 관련된 로직은 도메인 안에 캡슐화
 - 상위 계층은 하위 계층에 의존하지 않고, 공동의 추상화된 인터페이스에 의존하여 쉽게 모듈을 변경할 수 있는 구조
   - PlaceSearchService : 검색 결과를 제공하는 인터페이스 (검색 결과에 대한 다양한 조합을 구현 가능)
-  - SearchProvider (ex. 새로운 구글 검색 서비스를 유연하게 추가 가능)
-  - PlaceSortPolicy : 정렬에 관한 다양한 정책 적용 가능
-- 테스트코드 : 신뢰할 수 있고 견고한 코드 작성 가능
+  - [SearchProvider](https://github.com/sanserif28/search/blob/main/search-service/src/main/java/co/whitetree/searchservice/external/provider/SearchProvider.java#L5) (ex. 새로운 구글 검색 서비스를 유연하게 추가 가능)
+  - [PlaceSortPolicy](https://github.com/sanserif28/search/blob/main/search-service/src/main/java/co/whitetree/searchservice/api/place/facade/PlaceFacade.java#L20) : 정렬에 관한 다양한 정책 적용 가능
+- [테스트코드](https://github.com/sanserif28/search/blob/main/search-service/src/test/java/co/whitetree/searchservice/domain/keyword/service/KeywordAddRetryServiceTest.java#L17) : 신뢰할 수 있고 견고한 코드 작성 가능
