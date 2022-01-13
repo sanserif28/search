@@ -39,13 +39,13 @@ cd ./search-service
 - 장소 검색
 
 ```bash
-curl -v -X GET "http://localhost/v1/places" --data-urlencode "query=파스타"
+curl -v -X GET "http://localhost:8080/v1/places" --data-urlencode "query=파스타"
 ```
 
 - 검색 키워드 목록 (Top 10)
 
 ```bash
-curl -v -X GET "http://localhost/v1/keywords"
+curl -v -X GET "http://localhost:8080/v1/keywords"
 ```
 
 ---
