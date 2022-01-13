@@ -1,4 +1,4 @@
 FROM openjdk:11-jdk
-VOLUME /tmp
+VOLUME /search-service
 COPY build/libs/*.jar search-service.jar
 ENTRYPOINT ["java","-jar","/search-service.jar"]

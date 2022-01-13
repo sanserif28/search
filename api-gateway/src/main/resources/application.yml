@@ -1,0 +1,30 @@
+server:
+  port: 8000
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: search-service-1
+          uri: lb://SEARCH-SERVICE-1
+          predicates:
+            - Path=/search-service-1/**
+          filters:
+            - RewritePath=/search-service-1/(?<segment>.*), /$\{segment} # /search-service-1/{segment} -> /{segment} 로 호출
+        - id: search-service-2
+          uri: lb://SEARCH-SERVICE-2
+          predicates:
+            - Path=/search-service-2/**
+          filters:
+            - RewritePath=/search-service-2/(?<segment>.*), /$\{segment} # /search-service-2/{segment} -> /{segment} 로 호출
+
