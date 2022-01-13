@@ -48,6 +48,8 @@ curl -v -X GET "http://localhost:8080/v1/places" --data-urlencode "query=파스�
 curl -v -X GET "http://localhost:8080/v1/keywords"
 ```
 
+- 테스트를 위한 데이터를 기본 등록(insert)해 놓았습니다.
+
 ---
 
 ## 1. 정렬 순서(장소 객체의 동등 기준)
